@@ -1,0 +1,46 @@
+<UserControl x:Class="SolutionReplicator.Views.ProfileValuesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,12"
+                   Text="Choose the target system and fill in its values" />
+
+        <!-- Profile selector + actions -->
+        <Grid Grid.Row="1" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Target system:" VerticalAlignment="Center" Margin="0,0,8,0" />
+            <ComboBox Grid.Column="1" Width="200" ItemsSource="{Binding Profiles}"
+                      SelectedItem="{Binding SelectedProfile, Mode=TwoWay}" />
+            <Button Grid.Column="2" Content="+ Add system…" Padding="12,4" Margin="8,0,0,0"
+                    Command="{Binding AddProfileCommand}" />
+            <Button Grid.Column="4" Content="💾 Save catalog" Padding="14,4"
+                    Command="{Binding SaveCatalogCommand}" />
+        </Grid>
+
+        <!-- Token value grid -->
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Rows}" AutoGenerateColumns="False"
+                  CanUserAddRows="False" CanUserDeleteRows="False" HeadersVisibility="Column"
+                  GridLinesVisibility="Horizontal" RowHeaderWidth="0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Variable" Binding="{Binding Token}" IsReadOnly="True" Width="180" />
+                <DataGridTextColumn Header="Field" Binding="{Binding FieldName}" IsReadOnly="True" Width="180" />
+                <DataGridTextColumn Header="Value for this system" Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBlock Grid.Row="3" Text="{Binding StatusText}" Margin="0,12,0,0" Foreground="#FF555555" />
+    </Grid>
+</UserControl>

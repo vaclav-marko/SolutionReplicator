@@ -1,0 +1,39 @@
+<UserControl x:Class="SolutionReplicator.Views.LoadSolutionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Load the exported solution (used as a template)"
+                   FontSize="15" FontWeight="SemiBold" Margin="0,0,0,12" />
+
+        <!-- Source XML -->
+        <GroupBox Grid.Row="1" Header="Source solution XML" Padding="8" Margin="0,0,0,8">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" VerticalContentAlignment="Center" Margin="0,0,8,0"
+                         Text="{Binding Context.SourceXmlPath, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Grid.Column="1" Content="Browse…" Padding="12,4" Margin="0,0,8,0"
+                        Command="{Binding BrowseXmlCommand}" />
+                <Button Grid.Column="2" Content="Load" Padding="18,4" FontWeight="SemiBold"
+                        Background="#FF4CAF50" Foreground="White"
+                        Command="{Binding LoadCommand}" />
+            </Grid>
+        </GroupBox>
+
+        <TextBlock Grid.Row="2" Text="{Binding SolutionInfo}" FontStyle="Italic"
+                   Foreground="DarkBlue" Margin="2,4,0,0" TextWrapping="Wrap" />
+
+        <TextBlock Grid.Row="3" Text="{Binding StatusText}" VerticalAlignment="Bottom"
+                   Foreground="DarkSlateGray" Margin="2,8,0,0" TextWrapping="Wrap" />
+    </Grid>
+</UserControl>

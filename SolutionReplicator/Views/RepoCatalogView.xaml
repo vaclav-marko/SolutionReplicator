@@ -1,0 +1,50 @@
+<UserControl x:Class="SolutionReplicator.Views.RepoCatalogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,12"
+                   Text="Point at the client repository and the placeholder catalog" />
+
+        <!-- Repository folder -->
+        <Grid Grid.Row="1" Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Repository:" VerticalAlignment="Center" Width="90" />
+            <TextBox Grid.Column="1" Text="{Binding Context.RepoFolder, Mode=OneWay}" IsReadOnly="True"
+                     VerticalContentAlignment="Center" Padding="4" Margin="0,0,8,0" />
+            <Button Grid.Column="2" Content="Browse…" Padding="14,4" Command="{Binding BrowseRepoCommand}" />
+        </Grid>
+
+        <!-- Catalog file -->
+        <Grid Grid.Row="2" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Catalog:" VerticalAlignment="Center" Width="90" />
+            <TextBox Grid.Column="1" Text="{Binding Context.CatalogPath, Mode=OneWay}" IsReadOnly="True"
+                     VerticalContentAlignment="Center" Padding="4" Margin="0,0,8,0" />
+            <Button Grid.Column="2" Content="Browse…" Padding="14,4" Command="{Binding BrowseCatalogCommand}" />
+        </Grid>
+
+        <TextBlock Grid.Row="3" Text="{Binding StatusText}" Margin="0,0,0,12" Foreground="#FF555555" />
+
+        <Border Grid.Row="4" Background="#FFF6F6F6" BorderBrush="#FFDDDDDD" BorderThickness="1" Padding="12">
+            <TextBox Text="{Binding DiscoveredSummary, Mode=OneWay}" IsReadOnly="True"
+                     VerticalScrollBarVisibility="Auto" FontFamily="Consolas" FontSize="12"
+                     Background="Transparent" BorderThickness="0" TextWrapping="NoWrap" />
+        </Border>
+    </Grid>
+</UserControl>

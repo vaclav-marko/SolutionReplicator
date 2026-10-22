@@ -1,0 +1,34 @@
+<Application x:Class="SolutionReplicator.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sbconv="clr-namespace:SolutionBuilder.Converters;assembly=SolutionBuilder"
+             xmlns:svr="clr-namespace:SapVariantReplacer;assembly=SapVariantReplacer"
+             xmlns:conv="clr-namespace:SolutionReplicator.Converters"
+             xmlns:vm="clr-namespace:SolutionReplicator.ViewModels"
+             xmlns:views="clr-namespace:SolutionReplicator.Views"
+             StartupUri="Views/WizardShellWindow.xaml">
+    <Application.Resources>
+        <!-- Shared converters, including the two reused from the referenced libraries. -->
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+        <sbconv:InverseBoolConverter x:Key="InverseBoolConverter" />
+        <svr:InvertBoolConverter x:Key="InvertBool" />
+        <conv:NotEmptyToVisibilityConverter x:Key="NotEmptyToVisConverter" />
+
+        <!-- Step VM -> step view resolution (implicit DataTemplates). -->
+        <DataTemplate DataType="{x:Type vm:LoadSolutionViewModel}">
+            <views:LoadSolutionView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SelectScopeViewModel}">
+            <views:SelectScopeView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:RepoCatalogViewModel}">
+            <views:RepoCatalogView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ProfileValuesViewModel}">
+            <views:ProfileValuesView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ComposeViewModel}">
+            <views:ComposeView />
+        </DataTemplate>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>SolutionReplicator</RootNamespace>
+    <AssemblyName>SolutionReplicator</AssemblyName>
+    <!-- 64-bit: the filtered solution DOM is large (~1GB resident). -->
+    <PlatformTarget>x64</PlatformTarget>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\SolutionXMLParser\SolutionBuilder\SolutionBuilder.csproj" />
+    <ProjectReference Include="..\..\Self_Localize_varfiles\SapVariantReplacer\SapVariantReplacer.csproj" />
+  </ItemGroup>
+
+</Project>

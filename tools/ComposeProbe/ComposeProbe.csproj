@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Throwaway verification harness for the placeholder compose slice. Not part of the main solution. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Link the new services + models from the shell project (no exe reference needed). -->
+    <Compile Include="..\..\SolutionReplicator\Services\ConsumptionResolver.cs" />
+    <Compile Include="..\..\SolutionReplicator\Services\ScopeItemMapper.cs" />
+    <Compile Include="..\..\SolutionReplicator\Services\InlineXmlValueExtractor.cs" />
+    <Compile Include="..\..\SolutionReplicator\Services\TokenScanner.cs" />
+    <Compile Include="..\..\SolutionReplicator\Services\RepoFileMatcher.cs" />
+    <Compile Include="..\..\SolutionReplicator\Services\CatalogComposer.cs" />
+    <Compile Include="..\..\SolutionReplicator\Services\PlaceholderTableStore.cs" />
+    <Compile Include="..\..\SolutionReplicator\Models\ConsumptionResult.cs" />
+    <Compile Include="..\..\SolutionReplicator\Models\PlaceholderTable.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\SolutionXMLParser\SolutionBuilder\SolutionBuilder.csproj" />
+    <ProjectReference Include="..\..\..\Self_Localize_varfiles\SapVariantReplacer\SapVariantReplacer.csproj" />
+  </ItemGroup>
+
+</Project>

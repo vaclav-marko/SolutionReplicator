@@ -1,0 +1,44 @@
+# Build outputs
+bin/
+obj/
+*.user
+*.suo
+.vs/
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.assets.json
+*.nuspec
+
+# Publish output
+publish/
+out/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# IDE
+*.VC.db
+*.VC.VC.opendb
+*.vspscc
+*.vssscc
+
+# Test / local data (not part of the repo)
+C:/_testing/
+
+# Rider / Resharper
+.idea/
+_ReSharper*/
+*.resharper
+
+# User-specific settings
+launchSettings.json
+
+# Archives
+*.zip
+*.7z
+*.rar

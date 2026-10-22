@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionReplicator", "SolutionReplicator\SolutionReplicator.csproj", "{0A50E774-FEF4-4ED3-9308-18B0781BCD6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionBuilder", "..\SolutionXMLParser\SolutionBuilder\SolutionBuilder.csproj", "{118BA9AE-D54A-4C85-A5D6-224F73AA36B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapVariantReplacer", "..\Self_Localize_varfiles\SapVariantReplacer\SapVariantReplacer.csproj", "{5F1BA5AC-C340-49B0-BC0E-3307B99CEEA9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0A50E774-FEF4-4ED3-9308-18B0781BCD6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A50E774-FEF4-4ED3-9308-18B0781BCD6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A50E774-FEF4-4ED3-9308-18B0781BCD6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A50E774-FEF4-4ED3-9308-18B0781BCD6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{118BA9AE-D54A-4C85-A5D6-224F73AA36B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{118BA9AE-D54A-4C85-A5D6-224F73AA36B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{118BA9AE-D54A-4C85-A5D6-224F73AA36B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{118BA9AE-D54A-4C85-A5D6-224F73AA36B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F1BA5AC-C340-49B0-BC0E-3307B99CEEA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F1BA5AC-C340-49B0-BC0E-3307B99CEEA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F1BA5AC-C340-49B0-BC0E-3307B99CEEA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F1BA5AC-C340-49B0-BC0E-3307B99CEEA9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
