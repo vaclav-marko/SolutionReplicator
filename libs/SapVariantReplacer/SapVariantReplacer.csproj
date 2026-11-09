@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Converted from WinExe to a class library so it can be referenced by the
+    SolutionReplicator shell app. App.xaml and Views/MainWindow.xaml are kept
+    on disk but excluded from the build. Views/InputDialog.xaml is retained
+    (reused by the shell for per-parameter bulk-set). Flip OutputType back to
+    WinExe and drop the exclusion ItemGroup to restore the standalone tool.
+  -->
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ApplicationDefinition Remove="App.xaml" />
+    <Page Remove="Views\MainWindow.xaml" />
+    <Compile Remove="App.xaml.cs" />
+    <Compile Remove="Views\MainWindow.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+  </ItemGroup>
+
+</Project>

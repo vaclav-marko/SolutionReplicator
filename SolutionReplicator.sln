@@ -5,9 +5,9 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionReplicator", "SolutionReplicator\SolutionReplicator.csproj", "{0A50E774-FEF4-4ED3-9308-18B0781BCD6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionBuilder", "..\SolutionXMLParser\SolutionBuilder\SolutionBuilder.csproj", "{118BA9AE-D54A-4C85-A5D6-224F73AA36B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionBuilder", "libs\SolutionBuilder\SolutionBuilder.csproj", "{118BA9AE-D54A-4C85-A5D6-224F73AA36B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapVariantReplacer", "..\Self_Localize_varfiles\SapVariantReplacer\SapVariantReplacer.csproj", "{5F1BA5AC-C340-49B0-BC0E-3307B99CEEA9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapVariantReplacer", "libs\SapVariantReplacer\SapVariantReplacer.csproj", "{5F1BA5AC-C340-49B0-BC0E-3307B99CEEA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

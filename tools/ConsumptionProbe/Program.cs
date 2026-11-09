@@ -4,10 +4,15 @@ using SolutionBuilder.Services;
 using SolutionReplicator.Models;
 using SolutionReplicator.Services;
 
-string xml = args.Length > 0 ? args[0] : @"C:\_testing\BP_OP_ENTPR_S4HANA2025_HUV12.xml";
+string xml = args.Length > 0 ? args[0] : @".\sample-solution.xml";
 
 Console.WriteLine($"XML: {xml}  Exists: {File.Exists(xml)}");
-if (!File.Exists(xml)) return 1;
+if (!File.Exists(xml))
+{
+    Console.WriteLine("Usage: dotnet run -- <solution.xml> [<matched-data-folder>]");
+    Console.WriteLine("Pass the path to an exported SAP solution XML to exercise the consumption-join logic.");
+    return 1;
+}
 
 var parser = new XmlParserService();
 var sol = await parser.ParseSolutionMetadataAsync(xml);
@@ -47,9 +52,10 @@ if (sample is not null)
     Console.WriteLine($"\n[Test 4] e.g. {sample.Param} (field {sample.FieldName}, central '{sample.CentralDataAlias}') " +
                       $"from file(s): {string.Join(", ", sample.SourceFiles.Take(3))}");
 
-// --- Test 5: full consumed-file parse/extract pipeline against the matched DEV12 pair ---
-string devXml = @"C:\SAPDevelop\SolutionXMLParser\BP_OP_ENTPR_S4HANA2025_DEV12.xml";
-string devFolder = @"C:\SAPDevelop\SolutionXMLParser\BP_OP_ENTPR_S4HANA2025_DEV12";
+// --- Test 5: full consumed-file parse/extract pipeline against a matched XML+folder pair ---
+// Optionally pass a second arg: a folder of exported .TXT files matching the XML's consumed set.
+string devXml = args.Length > 1 ? args[1] + ".xml" : "";
+string devFolder = args.Length > 1 ? args[1] : "";
 if (File.Exists(devXml) && Directory.Exists(devFolder))
 {
     var devSis = mapper.Map(devXml);
@@ -78,7 +84,7 @@ if (File.Exists(devXml) && Directory.Exists(devFolder))
     var entries = FieldExtractor.Extract(vfiles);
     var groups = entries.GroupBy(e => e.FieldName).OrderByDescending(g => g.Count()).ToList();
 
-    Console.WriteLine($"\n[Test 5] DEV12 pipeline: SI {pick.ProjectId} ({devBbs.Count} BBs)");
+    Console.WriteLine($"\n[Test 5] data-pair pipeline: SI {pick.ProjectId} ({devBbs.Count} BBs)");
     Console.WriteLine($"  consumed={cons.ConsumedFiles.Count}, present on disk={present}, missing={missing}");
     Console.WriteLine($"  parsed variant files={vfiles.Count}, unique (param,value) rows={entries.Count}, distinct params(groups)={groups.Count}");
     Console.WriteLine("  top groups: " + string.Join(", ", groups.Take(6).Select(g => $"{g.Key}×{g.Count()}")));
@@ -122,7 +128,7 @@ if (File.Exists(devXml) && Directory.Exists(devFolder))
 }
 else
 {
-    Console.WriteLine($"\n[Test 5] skipped — DEV12 pair not found ({devXml})");
+    Console.WriteLine($"\n[Test 5] skipped — no data-pair folder given ({devFolder})");
 }
 
 // --- Test 7: inline XML value extraction (the "XML contains data" source) ---
@@ -144,8 +150,9 @@ Console.WriteLine($"  scoped to SI {si7.ProjectId} ({scopedParams.Count} consume
                ?? scopeItems.First(s => s.BuildingBlockIds.Count > 0);
     var huBbs = new HashSet<string>(huSi.BuildingBlockIds, StringComparer.OrdinalIgnoreCase);
     var proc = new SolutionProcessorService();
+    string regenDir = Path.Combine(Path.GetTempPath(), "SolReplProbe_regen_" + Guid.NewGuid().ToString("N")[..8]);
     var prep = await proc.PreparePackageAsync(
-        xml, @"C:\_testing", "BP_OP_ENTPR_S4HANA2025_VMA2", "HU", "HU",
+        xml, regenDir, "BP_OP_ENTPR_S4HANA2025_REGEN", "HU", "HU",
         new HashSet<string> { huSi.ProjectId }, huBbs, renameSolution: true);
 
     var ob = File.ReadAllBytes(prep.OutputXmlPath);

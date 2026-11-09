@@ -27,8 +27,10 @@ Thumbs.db
 *.vspscc
 *.vssscc
 
-# Test / local data (not part of the repo)
-C:/_testing/
+# Local test / sample data (not part of the repo)
+_testing/
+sample-repo/
+*.local.csv
 
 # Rider / Resharper
 .idea/
@@ -42,3 +44,7 @@ launchSettings.json
 *.zip
 *.7z
 *.rar
+
+# Internal / NDA material — kept locally, never published
+AGENTS.md
+docs/

@@ -1,0 +1,10 @@
+# Normalize line endings for source, but keep SAP installation-data fidelity intact.
+* text=auto eol=crlf
+
+# Never touch the byte layout of SAP variant/installation-data files
+# (UTF-16LE + BOM, CRLF — the whole point of the tool).
+*.TXT binary
+*.txt binary
+
+# Binary assets
+*.png binary

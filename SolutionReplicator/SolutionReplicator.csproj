@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\SolutionXMLParser\SolutionBuilder\SolutionBuilder.csproj" />
-    <ProjectReference Include="..\..\Self_Localize_varfiles\SapVariantReplacer\SapVariantReplacer.csproj" />
+    <ProjectReference Include="..\libs\SolutionBuilder\SolutionBuilder.csproj" />
+    <ProjectReference Include="..\libs\SapVariantReplacer\SapVariantReplacer.csproj" />
   </ItemGroup>
 
 </Project>

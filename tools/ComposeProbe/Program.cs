@@ -11,8 +11,8 @@ using SolutionReplicator.Services;
 // Usage: dotnet run                 (defaults below)
 //        dotnet run -- <repo> <xml>
 
-string repo = args.Length > 0 ? args[0] : @"C:\_testing\_CUST1";
-string xml = args.Length > 1 ? args[1] : @"C:\_testing\ZVMA_DEMO_TEMPLATE.xml";
+string repo = args.Length > 0 ? args[0] : @".\sample-repo";
+string xml = args.Length > 1 ? args[1] : @".\sample-solution.xml";
 
 int failures = 0;
 void Check(string label, bool ok)

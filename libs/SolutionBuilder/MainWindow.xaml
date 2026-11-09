@@ -1,0 +1,168 @@
+﻿<Window x:Class="SolutionBuilder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:SolutionBuilder.ViewModels"
+        xmlns:conv="clr-namespace:SolutionBuilder.Converters"
+        Title="SAP Solution Builder - Country Localization Tool"
+        Height="800" Width="1200"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+        <conv:InverseBoolConverter x:Key="InverseBoolConverter"/>
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="150"/>
+        </Grid.RowDefinitions>
+
+        <!-- Row 0: File Paths -->
+        <GroupBox Grid.Row="0" Header="Source Files" Margin="0,0,0,5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="80"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Source XML -->
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Source XML:" 
+                           VerticalAlignment="Center" Margin="5"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SourceXmlPath, UpdateSourceTrigger=PropertyChanged}" 
+                         Margin="5" VerticalAlignment="Center"/>
+                <Button Grid.Row="0" Grid.Column="2" Content="Browse" 
+                        Command="{Binding BrowseSourceXmlCommand}" Margin="5" Padding="5,2"/>
+                <Button Grid.Row="0" Grid.Column="3" Content="Load" 
+                        Command="{Binding LoadXmlCommand}" Margin="5" Padding="5,2"
+                        FontWeight="Bold" Background="#FF4CAF50" Foreground="White"/>
+
+                <!-- Source Data Folder -->
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Data Folder:" 
+                           VerticalAlignment="Center" Margin="5"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SourceDataFolder, UpdateSourceTrigger=PropertyChanged}" 
+                         Margin="5" VerticalAlignment="Center"/>
+                <Button Grid.Row="1" Grid.Column="2" Content="Browse" 
+                        Command="{Binding BrowseSourceDataCommand}" Margin="5" Padding="5,2"/>
+
+                <!-- Output Folder -->
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Output Folder:" 
+                           VerticalAlignment="Center" Margin="5"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding OutputFolder, UpdateSourceTrigger=PropertyChanged}" 
+                         Margin="5" VerticalAlignment="Center"/>
+                <Button Grid.Row="2" Grid.Column="2" Content="Browse" 
+                        Command="{Binding BrowseOutputFolderCommand}" Margin="5" Padding="5,2"/>
+            </Grid>
+        </GroupBox>
+
+        <!-- Row 1: Solution Settings -->
+        <GroupBox Grid.Row="1" Header="New Solution Settings" Margin="0,0,0,5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="80"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Solution Name:" VerticalAlignment="Center" Margin="5"/>
+                <TextBox Grid.Column="1" Text="{Binding NewSolutionName, UpdateSourceTrigger=PropertyChanged}" 
+                         Margin="5" VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Column="2" Text="Target Country:" VerticalAlignment="Center" Margin="5"/>
+                <TextBox Grid.Column="3" Text="{Binding TargetCountry, UpdateSourceTrigger=PropertyChanged}" 
+                         Margin="5" VerticalAlignment="Center" MaxLength="2" CharacterCasing="Upper"/>
+
+                <TextBlock Grid.Column="4" Text="Source Country:" VerticalAlignment="Center" Margin="5"/>
+                <TextBox Grid.Column="5" Text="{Binding SourceCountry, UpdateSourceTrigger=PropertyChanged}" 
+                         Margin="5" VerticalAlignment="Center" IsReadOnly="True" Background="#FFF0F0F0"/>
+            </Grid>
+        </GroupBox>
+
+        <!-- Row 2: Solution Info -->
+        <TextBlock Grid.Row="2" Text="{Binding SolutionInfo}" 
+                   FontStyle="Italic" Foreground="DarkBlue" Margin="5,0,5,5"/>
+
+        <!-- Row 3: Search and Selection Controls -->
+        <Grid Grid.Row="3" Margin="0,0,0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Search:" VerticalAlignment="Center" Margin="5"/>
+            <TextBox Grid.Column="1" Text="{Binding SearchFilter, UpdateSourceTrigger=PropertyChanged}" 
+                     Margin="5" VerticalAlignment="Center"/>
+            <Button Grid.Column="2" Content="Select All" Command="{Binding SelectAllCommand}" 
+                    Margin="5" Padding="10,3"/>
+            <Button Grid.Column="3" Content="Deselect All" Command="{Binding DeselectAllCommand}" 
+                    Margin="5" Padding="10,3"/>
+            <Button Grid.Column="4" Content="&#x2699; Process" Command="{Binding ProcessCommand}" 
+                    Margin="5" Padding="15,5" FontWeight="Bold" FontSize="14"
+                    Background="#FF2196F3" Foreground="White"
+                    IsEnabled="{Binding IsProcessing, Converter={StaticResource InverseBoolConverter}}"/>
+        </Grid>
+
+        <!-- Row 4: TreeView -->
+        <TreeView Grid.Row="4" ItemsSource="{Binding TreeNodes}" Margin="0,0,0,5"
+                  VirtualizingStackPanel.IsVirtualizing="True"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                    <StackPanel Orientation="Horizontal" Margin="2">
+                        <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" 
+                                  VerticalAlignment="Center" Margin="0,0,5,0"/>
+                        <TextBlock Text="{Binding DisplayText}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="TreeViewItem">
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
+                </Style>
+            </TreeView.ItemContainerStyle>
+        </TreeView>
+
+        <!-- Row 5: Status Bar -->
+        <Border Grid.Row="5" Background="#FFE0E0E0" Padding="5" Margin="0,0,0,5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{Binding StatusText}" VerticalAlignment="Center"/>
+                <ProgressBar Grid.Column="1" Width="100" Height="16" IsIndeterminate="{Binding IsProcessing}"
+                             Visibility="{Binding IsProcessing, Converter={StaticResource BoolToVis}}"
+                             Margin="10,0,0,0"/>
+            </Grid>
+        </Border>
+
+        <!-- Row 6: Log -->
+        <GroupBox Grid.Row="6" Header="Log">
+            <TextBox Text="{Binding LogText, Mode=OneWay}" IsReadOnly="True" 
+                     VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                     FontFamily="Consolas" FontSize="11" TextWrapping="NoWrap"/>
+        </GroupBox>
+    </Grid>
+</Window>
